@@ -1,0 +1,426 @@
+﻿
+/* ГЛАВНЫЙ ФАИЛ СТИЛЕЙ ДЛЯ АКАДЕМИИ */
+
+/* **********************************************************************************
+	Шрифты оригинальные, натурально сдутые с Академии...
+	Гулять, так гулять!
+*/
+
+@font-face { 
+	font-family: "Shmuller"; 
+	font-style: normal; 
+	font-weight: 400; 
+	src: url("../fonts/2DF5B4_F_0.woff2") format("woff2"), url("../fonts/2DF5B4_F_0.woff") format("woff"); 
+}
+
+@font-face { 
+	font-family: "Shmuller"; 
+	font-style: italic; 
+	font-weight: 400; 
+	src: url("../fonts/Lato-Italic.woff2") format("woff2"), url("../fonts/Lato-Italic.woff") format("woff"); 
+}
+
+@font-face { 
+	font-family: "Shmuller"; 
+	font-style: normal; 
+	font-weight: 700; 
+	src: url("../fonts/2DF5B4_2_0.woff2") format("woff2"), url("../fonts/2DF5B4_2_0.woff") format("woff"); 
+}
+
+@font-face { 
+	font-family: "Shmuller"; 
+	font-style: italic; 
+	font-weight: 700; 
+	src: url("../fonts/Lato-HeavyItalic.woff2") format("woff2"), url("../fonts/Lato-HeavyItalic.woff") format("woff"); 
+}
+
+/* **********************************************************************************
+	Общие стили
+*/
+
+body {
+	padding: 0;
+	margin: 0;
+	font-family: "Shmuller","Arial",sans-serif;
+	font-size: 16px;
+}
+
+a {
+	color: #00F;
+}
+
+a:hover {
+	color: #000;
+}
+
+a:active {
+	opacity: 0.6;
+}
+
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.logoimg {
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+}
+
+
+nav ul {
+	padding: 0;
+	list-style: none;
+}
+
+.a-btn {
+	border: 2px solid #696C6D;
+	background-color: #C3C6C8;
+	color: #303030;
+	border-radius: 5px;
+	display: block;
+	transition:border,box-shadow,background 0.2s ease;
+}
+
+.a-btn:hover {
+	border-color: #333333;
+	color: #000000;
+}
+
+.a-btn:active {
+	opacity: 0.8;
+}
+
+.a-btn__pushed {
+	box-shadow: inset 0 0 0px 2px rgba(105,108,109,0.75);
+	background-color: #B6B7BA;
+}
+
+/* **********************************************************************************
+	Хэдер страницы
+*/
+
+.topheader {
+	text-align: center;
+	margin: 20px 100px;
+	padding-top: 5px;
+	background-color: #f0f0f0;
+}
+
+.topheader a {
+	display: block;
+	float: left;
+	position: relative;
+	line-height: 0;
+	margin-top: -5px;
+	background-color: #dbdbdb;
+}
+
+
+.topheader a.help::after {
+	content: "?";
+	font-size: 20px;
+	font-weight: bold;
+	display: block;
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	color: #A00000;
+	margin-left: -9px;
+	transition: all 0.5s ease 0s;
+}
+
+.topheader a.help:hover::after {
+	opacity: 0;
+	color: #404040;
+	margin-left: -40px;
+}
+
+.topheader a.help:active {
+	opacity: 0.3;
+}
+
+.topheader h2 {
+	border-left: 1px dashed #a0a0a0;
+	height: 110px;
+	margin: 0 1px 0 120px;
+	box-sizing: border-box;
+	width: inherit;
+	padding-top: 34px;
+
+}
+
+/* **********************************************************************************
+	Основное содержимое
+*/
+
+.courses, .theory, nav {
+	margin: 20px 100px;
+}
+
+.course_navigation ul {
+	margin: auto;
+	width: 612px;
+	text-align: center;
+}
+
+.course_navigation li {
+	display: block;
+	float: left;
+	width: 180px;
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 100%;
+}
+
+.course_navigation a {
+	display: block;
+	padding: 10px 20px;
+	text-decoration: none;
+	color: #303030;
+}
+
+.course_navigation a:hover {
+	color: #000000;
+}
+
+
+.course_navigation .course_navigation__inactive, 
+.course_navigation .course_navigation__inactive:hover, 
+.course_navigation .course_navigation__inactive:active {
+	color: #F0F0F0;
+	opacity: 1;
+}
+
+.toc_theory {
+	display: block; 
+}
+
+.toc_theory ul {
+	border: 1px solid #A0A0A0;
+	background-color: #F0F0F0;
+}
+
+.collapse_toc {
+	display: table-header-group;
+	background-color: #E0E0E0;
+	border-bottom: 1px solid #A0A0A0;
+}
+
+.collapse_toc a {
+	display: table-cell;
+	position: relative;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.collapse_toc .collapse_toc_arrow {
+	position: relative;
+	width: 0;
+	height: 10px;
+	margin: auto;
+}
+
+.collapse_toc .collapse_toc_arrow::before {
+	display: block;
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-top: 10px solid #000000;
+	border-left: 10px solid transparent;
+	border-right: none;
+	border-bottom: none;
+	left: -10px;
+	filter: drop-shadow(0 2px 0 #a0a0a0);
+	z-index: 3;
+}
+
+.collapse_toc .collapse_toc_arrow::after {
+	display: block;
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-top: 10px solid #000000;
+	border-right: 10px solid transparent;
+	border-left: none;
+	border-bottom: none;
+	right: -10px;
+	filter: drop-shadow(0 2px 0 #a0a0a0);
+	z-index: 2;
+}
+
+.table {
+	display: table;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.tablerow {
+	display: table-row;
+}
+
+.tabledata {
+	display: table-cell;
+	padding: 5px 10px;
+}
+
+.courses-item {
+	border: 1px solid #DDDDDD;
+}
+
+.theory header {
+	background-color: #F0F0F0;
+	border: 1px dashed #A0A0A0;
+	text-align: center;
+	position: relative;
+}
+
+.theory header h3 {
+	margin: 0 54px;
+}
+
+.theory .collapse_task {
+	position: absolute;
+	right: 10px;
+	margin-top: -22px;
+	top: 50%;
+	width:40px;
+	height:40px;
+	background-image: url("../images/code.png");
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 34px;
+}
+
+.theory .collapse_task.a-btn__pushed {
+	background-size: 30px;
+}
+
+.theory section {
+	border-bottom: 2px solid #000000;
+	margin-bottom: 50px;
+	margin-top: 50px;
+}
+
+.theory article p,li,table {
+	font-family: "Calibri", "Arial", sans-serif;
+}
+
+.theory article p + ul {
+	margin-top: 0;
+}
+
+.theory article p {
+	margin-bottom: 0;
+}
+
+.theory article {
+	font-size: 90%;
+	padding-bottom: 25px;
+}
+
+
+.theory section:last-child {
+	border: none;
+}
+
+.theory .theory_task .task_code {
+	width: 33.0%;
+	float: left;
+}
+
+.theory .theory_task [id^="editor"] {
+	box-sizing: border-box;
+	width: 100%;
+	height: 300px;
+}
+
+.theory .theory_task .task_code{
+	border-left: 1px dashed #A0A0A0;
+	border-bottom: 1px dashed #A0A0A0;
+	border-top: 1px dashed #A0A0A0;
+	padding-top: 2px;
+}
+
+.theory .theory_task .task_code:last-child {
+	border-right: 1px dashed #A0A0A0;
+}
+
+.theory .theory_task [class^="task_code_label"] {
+	float:right;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding: 3px 5px;
+	padding-top: auto;
+	font-weight: bold;
+	font-size: 80%;
+	margin-right: 7px;
+	margin-top: 6px;
+}
+
+.theory .theory_task .task_code_label_html {
+	background-color: #0000FF;
+}
+
+.theory .theory_task .task_code_label_css {
+	background-color: #00FF00;
+}
+
+.theory .theory_task .task_code_label_js {
+	background-color: #FF0000;
+}
+
+.theory .theory_task .a-btn {
+	float: left;
+	margin-left: 7px;
+	padding: 5px 6px 5px 33px;
+	margin-bottom: 3px;
+	text-decoration: none;
+	position: relative;
+}
+
+.theory .theory_task .a-btn::before {
+	position: absolute;
+	display: block;
+	content: "";
+	background-image: url("../images/solve.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 25px;
+	top: 2px;
+	left: 6px;
+}
+
+/* **********************************************************************************
+	Футер страницы
+*/
+
+.bottomfooter {
+	background-color: #2D2D44;
+	color: #FFFFFF;
+	text-align: left;
+	padding: 20px 100px;
+}
+
+.bottomfooter a {
+	display: block;
+	float: left;
+	line-height: 0;
+	margin-right: 20px;
+}
+
+.bottomfooter .copyright {
+	margin-left: 280px;
+	height: 120px;
+	display: table-cell;
+	vertical-align: bottom;
+}
+
+.bottomfooter .logowhite {
+	filter: invert(1) brightness(200%);
+}
