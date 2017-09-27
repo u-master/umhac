@@ -100,21 +100,21 @@
 			echo "\t\t\t<div class='task_code'>\n";
 			echo "\t\t\t\t<div class='task_code_controls clearfix'>\n";
 			echo "\t\t\t\t\t<div class='task_code_label_html'>HTML</div>\n";
-			echo "\t\t\t\t\t<a class='a-btn' href='javascript:void(0)' data-target-editor='editor_HTML".$row['seq_number']."'>Решение</a>\n";
+			echo "\t\t\t\t\t<a class='a-btn show-solution' href='javascript:void(0)' data-target-editor='HTML' data-seq-number='".$row['seq_number']."'>Решение</a>\n";
 			echo "\t\t\t\t</div>\n";
 			echo "\t\t\t\t<div id='editor_HTML".$row['seq_number']."'></div>\n";
 			echo "\t\t\t</div>\n";
 			echo "\t\t\t<div class='task_code'>\n";
 			echo "\t\t\t\t<div class='task_code_controls clearfix'>\n";
 			echo "\t\t\t\t\t<div class='task_code_label_css'>CSS</div>\n";
-			echo "\t\t\t\t\t<a class='a-btn' href='javascript:void(0)' data-target-editor='editor_CSS".$row['seq_number']."'>Решение</a>\n";
+			echo "\t\t\t\t\t<a class='a-btn show-solution' href='javascript:void(0)' data-target-editor='CSS' data-seq-number='".$row['seq_number']."'>Решение</a>\n";
 			echo "\t\t\t\t</div>\n";
 			echo "\t\t\t\t<div id='editor_CSS".$row['seq_number']."'></div>\n";
 			echo "\t\t\t</div>\n";
 			echo "\t\t\t<div class='task_code'>\n";
 			echo "\t\t\t\t<div class='task_code_controls clearfix'>\n";
 			echo "\t\t\t\t\t<div class='task_code_label_js'>JS</div>\n";
-			echo "\t\t\t\t\t<a class='a-btn' href='javascript:void(0)' data-target-editor='editor_JS".$row['seq_number']."'>Решение</a>\n";
+			echo "\t\t\t\t\t<a class='a-btn show-solution' href='javascript:void(0)' data-target-editor='JS' data-seq-number='".$row['seq_number']."'>Решение</a>\n";
 			echo "\t\t\t\t</div>\n";
 			echo "\t\t\t\t<div id='editor_JS".$row['seq_number']."'></div>\n";
 			echo "\t\t\t</div>\n";
@@ -164,8 +164,6 @@
 				this._j.getSession().setUseWrapMode(true);
 				this._j.$blockScrolling = Infinity;
 				this.getTaskAJAX();
-				this._c.gotoLine(1);
-				this._j.gotoLine(1);
 			},
 			getTaskAJAX : function(typeCode) {
 				if (!typeCode || typeCode=="HTML") {
@@ -192,7 +190,7 @@
 						}
 					});
 				}
-				if (!typeCode || typeCode=="CSS") {
+				if (!typeCode || typeCode=="JS") {
 					$.ajax({
 						url: "ajax/reqtasksrc.php?type=js&num="+this._n, 
 						dataType: "text",
@@ -206,7 +204,42 @@
 				}
 			},
 			getSolveAJAX : function(typeCode) {
-				return "text";
+				if (!typeCode || typeCode=="HTML") {
+					$.ajax({
+						url: "ajax/reqtaskslv.php?type=html&num="+this._n, 
+						dataType: "html",
+						method: "GET",
+						context: this,
+						success: function (data) {
+							this._h.setValue(data);
+							this._h.gotoLine(1);
+						}
+					});
+				}
+				if (!typeCode || typeCode=="CSS") {
+					$.ajax({
+						url: "ajax/reqtaskslv.php?type=css&num="+this._n, 
+						dataType: "text",
+						method: "GET",
+						context: this,
+						success: function (data) {
+							this._c.setValue(data);
+							this._c.gotoLine(1);
+						}
+					});
+				}
+				if (!typeCode || typeCode=="JS") {
+					$.ajax({
+						url: "ajax/reqtaskslv.php?type=js&num="+this._n, 
+						dataType: "text",
+						method: "GET",
+						context: this,
+						success: function (data) {
+							this._j.setValue(data);
+							this._j.gotoLine(1);
+						}
+					});
+				}
 			}
 		}
 
@@ -218,15 +251,33 @@
 		/* Toggle collapse task */
 		$(".theory_task").hide();
 		$(".collapse_task").click(function(){
-			var nTheoryNumber=$(this).data("seqNumber")
-			/* Collapse container with task*/
+			var nTheoryNumber=$(this).data("seqNumber");
+			var parentSection=$(this).parents("#theory"+nTheoryNumber)[0];
+			/* Collapse container with task */
 			$("#theory"+nTheoryNumber+" .theory_task").toggle();
-			/* Toggle button to active form*/
+			/* Toggle button to active state */
 			$(this).toggleClass("a-btn__pushed");
-			if ($(this).hasClass("a-btn__pushed") && !$(this).taskElem) {
-				$(this).taskElem=new objTask(nTheoryNumber);
+			if ($(this).hasClass("a-btn__pushed") && !parentSection.taskElem) {
+				parentSection.taskElem=new objTask(nTheoryNumber);
 			}
 			return true;
+		});
+
+		/* Toggle solve task */
+		$(".show-solution").click(function(){
+			var targetEditor=$(this).data("targetEditor");
+			var nTheoryNumber=$(this).data("seqNumber");
+			var curObjTask=$(this).parents("#theory"+nTheoryNumber)[0].taskElem;
+			if(curObjTask) {
+				/* Toggle button to active state */
+				$(this).toggleClass("a-btn__pushed");
+				if ($(this).hasClass("a-btn__pushed")) {
+					curObjTask.getSolveAJAX(targetEditor);
+				}
+				else {
+					curObjTask.getTaskAJAX(targetEditor);
+				}
+			}
 		});
 	});
 </script>
