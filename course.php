@@ -168,7 +168,7 @@
 			getTaskAJAX : function(typeCode) {
 				if (!typeCode || typeCode=="HTML") {
 					$.ajax({
-						url: "ajax/reqtasksrc.php?type=html&num="+this._n, 
+						url: "ajax/reqtask.php?solve=0&type=html&num="+this._n, 
 						dataType: "html",
 						method: "GET",
 						context: this,
@@ -180,7 +180,7 @@
 				}
 				if (!typeCode || typeCode=="CSS") {
 					$.ajax({
-						url: "ajax/reqtasksrc.php?type=css&num="+this._n, 
+						url: "ajax/reqtask.php?solve=0&type=css&num="+this._n, 
 						dataType: "text",
 						method: "GET",
 						context: this,
@@ -192,7 +192,7 @@
 				}
 				if (!typeCode || typeCode=="JS") {
 					$.ajax({
-						url: "ajax/reqtasksrc.php?type=js&num="+this._n, 
+						url: "ajax/reqtask.php?solve=0&type=js&num="+this._n, 
 						dataType: "text",
 						method: "GET",
 						context: this,
@@ -206,7 +206,7 @@
 			getSolveAJAX : function(typeCode) {
 				if (!typeCode || typeCode=="HTML") {
 					$.ajax({
-						url: "ajax/reqtaskslv.php?type=html&num="+this._n, 
+						url: "ajax/reqtask.php?solve=1&type=html&num="+this._n, 
 						dataType: "html",
 						method: "GET",
 						context: this,
@@ -218,7 +218,7 @@
 				}
 				if (!typeCode || typeCode=="CSS") {
 					$.ajax({
-						url: "ajax/reqtaskslv.php?type=css&num="+this._n, 
+						url: "ajax/reqtask.php?solve=0&type=css&num="+this._n, 
 						dataType: "text",
 						method: "GET",
 						context: this,
@@ -230,7 +230,7 @@
 				}
 				if (!typeCode || typeCode=="JS") {
 					$.ajax({
-						url: "ajax/reqtaskslv.php?type=js&num="+this._n, 
+						url: "ajax/reqtask.php?solve=0&type=js&num="+this._n, 
 						dataType: "text",
 						method: "GET",
 						context: this,
