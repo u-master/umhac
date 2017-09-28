@@ -96,7 +96,6 @@
 			echo "\t\t\t".$row['theory_html']."\n";
 			echo "\t\t</article>\n";
 			echo "\t\t<article class='theory_task clearfix'>\n";
-			echo "\t\t\t<code id=task".$row['seq_number']."></code>\n";
 			echo "\t\t\t<div class='task_code'>\n";
 			echo "\t\t\t\t<div class='task_code_controls clearfix'>\n";
 			echo "\t\t\t\t\t<div class='task_code_label_html'>HTML</div>\n";
@@ -118,6 +117,10 @@
 			echo "\t\t\t\t</div>\n";
 			echo "\t\t\t\t<div id='editor_JS".$row['seq_number']."'></div>\n";
 			echo "\t\t\t</div>\n";
+			echo "\t\t\t<form class='form-sandbox' method='post' action='https://codepen.io/pen/define/' target='_blank'>\n";
+			echo "\t\t\t\t<input type='hidden' id='data-sandbox' name='data' value='{}'>\n";
+			echo "\t\t\t\t<input type='submit' class='a-btn' id='open-sandbox' name='open-sandbox' data-seq-number='".$row['seq_number']."' value='Открыть в песочнице Codepen'>\n";
+			echo "\t\t\t</form>\n";
 			echo "\t\t</article>\n";
 			echo "\t</section>\n";
 		}
@@ -279,6 +282,22 @@
 				}
 			}
 		});
+
+		/* Tune to open in Codepen */
+		$("#open-sandbox").click(function(){
+			var curObjTask=$(this).parents("#theory"+$(this).data("seqNumber"))[0].taskElem;
+			var jsonData;
+			if (curObjTask) {
+				jsonData = {
+					head: "<meta charset='utf-8'>",
+					html: curObjTask._h.getValue(),
+					css: curObjTask._c.getValue(),
+					js: curObjTask._j.getValue(),
+				};
+				$(this).siblings("#data-sandbox").val(JSON.stringify(jsonData).replace(/[А-яё"']/g, function(cur){return "&#"+cur.charCodeAt(0)+";"}));
+			}
+		});
+
 	});
 </script>
 
