@@ -96,6 +96,7 @@
 			echo "\t\t\t".$row['theory_html']."\n";
 			echo "\t\t</article>\n";
 			echo "\t\t<article class='theory_task clearfix'>\n";
+			echo "\t\t\t<div id='task_text".$row['seq_number']."'></div>\n";
 			echo "\t\t\t<div class='task_code'>\n";
 			echo "\t\t\t\t<div class='task_code_controls clearfix'>\n";
 			echo "\t\t\t\t\t<div class='task_code_label_html'>HTML</div>\n";
@@ -144,6 +145,7 @@
 		// Object of ACE Editors in collapsed tasks.
 		var objTask = function(nNumber) {
 			this._n = nNumber;
+			this._initText ();
 			this._initEdits ();
 		}
 		objTask.prototype = {
@@ -167,6 +169,18 @@
 				this._j.getSession().setUseWrapMode(true);
 				this._j.$blockScrolling = Infinity;
 				this.getTaskAJAX();
+			},
+			_initText : function() {
+				$.ajax({
+					url: "ajax/reqtask.php?type=text&num="+this._n, 
+					dataType: "text",
+					method: "GET",
+					context: this,
+					success: function (data) {
+						$("#task_text"+this._n).html(data);
+					}
+				});
+				
 			},
 			getTaskAJAX : function(typeCode) {
 				if (!typeCode || typeCode=="HTML") {
